@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AcmeApi.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,9 @@ namespace AcmeApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // Create a service for our Loan repo so that it can be injected where it needs to be used.
+            services.AddScoped<ILoanRepo, MockLoanRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
