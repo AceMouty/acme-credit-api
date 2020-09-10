@@ -13,6 +13,7 @@ namespace AcmeApi.Profiles
             //       <Source, Target>
             CreateMap<Loan, LoanReadDto>();
             CreateMap<LoanCreateDto, Loan>();
+            CreateMap<LoanUpdateDto, Loan>();
         }
     }
 }

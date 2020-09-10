@@ -12,8 +12,11 @@ namespace AcmeApi.Controllers
     [Route("api/loans")]
     public class LoansController : ControllerBase
     {
-
+        
+        // Field used to access our data layer / DB
         private readonly ILoanRepo _repository;
+
+        // Field used to access our Automapper
         private readonly IMapper _mapper;
 
         public LoansController(ILoanRepo loanRepo, IMapper mapper){
@@ -26,6 +29,7 @@ namespace AcmeApi.Controllers
         [HttpGet]
         public ActionResult <IEnumerable<LoanReadDto>> GetAllLoans()
         {    
+            // Get all of our loans from the DB and convert them to a DTO and send out the DTO
             var loans = _repository.GetAllLoans();
             var mappedLoans = _mapper.Map<IEnumerable<LoanReadDto>>(loans);
             return Ok(mappedLoans);
@@ -35,6 +39,9 @@ namespace AcmeApi.Controllers
         [HttpGet("{loanId}", Name="GetLoanById")] 
         public ActionResult <LoanReadDto> GetLoanById(string loanId)
         {
+
+            // Get a loan by ID, but first we will check to make sure that resource exists
+            // if it does we will map it to a DTO and send out the DTO
             var loan = _repository.GetLoanById(loanId);
             if(loan == null)
             {
@@ -49,7 +56,7 @@ namespace AcmeApi.Controllers
         [HttpPost]
         public ActionResult <LoanReadDto> CreateLoan(LoanCreateDto loanCreateDto)
         {
-            // Use automapper to convert our DTO into a native model representation
+            // Use automapper to convert our DTO into a loan model
             var loanModel = _mapper.Map<Loan>(loanCreateDto);
             _repository.CreateLoan(loanModel);
             _repository.saveChanges();
@@ -59,6 +66,29 @@ namespace AcmeApi.Controllers
 
             // Return a 201 that also provides the resource that has created it.
             return CreatedAtRoute(nameof(GetLoanById), new {loanId = loanReadDto.loanId}, loanReadDto);
+        }
+
+        // PUT /api/loans/{loanId}
+        [HttpPut("{loanId}")]
+        public ActionResult UpdateLoan(string loanId, LoanUpdateDto loanUpdateDto)
+        {
+            // Check to see if the loan that is sent in for an update actually exists,
+            // if it does not return not found, if it does exists move on.
+            var loanFromRepo = _repository.GetLoanById(loanId);
+            if(loanFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            // take data from updateDto and apply to the model from the repo
+            // and then convert the model to a read DTO
+            _mapper.Map(loanUpdateDto, loanFromRepo);
+            _repository.saveChanges();
+
+            var updatedLoan = _mapper.Map<LoanReadDto>(loanFromRepo);
+
+            // Return the updated data in the form of a DTO
+            return Ok(updatedLoan);
         }
     }
 }
