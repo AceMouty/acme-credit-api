@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +28,9 @@ namespace AcmeApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // Get access to SqlServer
+            services.AddDbContext<LoanContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("AcmeConnection")));
 
             // Create a service for our Loan repo so that it can be injected where it needs to be used.
             services.AddScoped<ILoanRepo, MockLoanRepo>();
