@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using AcmeApi.Data;
+using AcmeApi.DTOs;
 using AcmeApi.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AcmeApi.Controllers
@@ -12,26 +14,35 @@ namespace AcmeApi.Controllers
     {
 
         private readonly ILoanRepo _repository;
+        private readonly IMapper _mapper;
 
-        public LoansController(ILoanRepo loanRepo){
+        public LoansController(ILoanRepo loanRepo, IMapper mapper){
             _repository = loanRepo;
+            _mapper = mapper;
         }
 
         
         // GET /api/loans
         [HttpGet]
-        public ActionResult <IEnumerable<Loan>> GetAllLoans()
+        public ActionResult <IEnumerable<LoanReadDto>> GetAllLoans()
         {    
             var loans = _repository.GetAllLoans();
-            return Ok(loans);
+            var mappedLoans = _mapper.Map<IEnumerable<LoanReadDto>>(loans);
+            return Ok(mappedLoans);
         } 
 
         // GET /api/loans/{loanId}
         [HttpGet("{loanId}")] 
-        public ActionResult <Loan> GetLoanById(string loanId)
+        public ActionResult <LoanReadDto> GetLoanById(string loanId)
         {
             var loan = _repository.GetLoanById(loanId);
-            return Ok(loan);
+            if(loan == null)
+            {
+                return NotFound();
+            }
+
+            var mappedLoan = _mapper.Map<LoanReadDto>(loan);
+            return Ok(mappedLoan);
         }
     }
 }
