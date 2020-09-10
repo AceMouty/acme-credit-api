@@ -32,7 +32,7 @@ namespace AcmeApi.Controllers
         } 
 
         // GET /api/loans/{loanId}
-        [HttpGet("{loanId}")] 
+        [HttpGet("{loanId}", Name="GetLoanById")] 
         public ActionResult <LoanReadDto> GetLoanById(string loanId)
         {
             var loan = _repository.GetLoanById(loanId);
@@ -43,6 +43,22 @@ namespace AcmeApi.Controllers
 
             var mappedLoan = _mapper.Map<LoanReadDto>(loan);
             return Ok(mappedLoan);
+        }
+
+        // POST /api/loans
+        [HttpPost]
+        public ActionResult <LoanReadDto> CreateLoan(LoanCreateDto loanCreateDto)
+        {
+            // Use automapper to convert our DTO into a native model representation
+            var loanModel = _mapper.Map<Loan>(loanCreateDto);
+            _repository.CreateLoan(loanModel);
+            _repository.saveChanges();
+            
+            // Map the model that was saved to the DB
+            var loanReadDto = _mapper.Map<LoanReadDto>(loanModel);
+
+            // Return a 201 that also provides the resource that has created it.
+            return CreatedAtRoute(nameof(GetLoanById), new {loanId = loanReadDto.loanId}, loanReadDto);
         }
     }
 }
