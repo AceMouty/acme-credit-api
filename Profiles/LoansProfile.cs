@@ -8,7 +8,11 @@ namespace AcmeApi.Profiles
     {
         public LoansProfile()
         {
+            // When creating maps we pass in the source data first and then the target data format,
+            // these are a one way translation
+            //       <Source, Target>
             CreateMap<Loan, LoanReadDto>();
+            CreateMap<LoanCreateDto, Loan>();
         }
     }
 }
