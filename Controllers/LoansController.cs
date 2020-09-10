@@ -32,7 +32,8 @@ namespace AcmeApi.Controllers
             // Get all of our loans from the DB and convert them to a DTO and send out the DTO
             var loans = _repository.GetAllLoans();
             var mappedLoans = _mapper.Map<IEnumerable<LoanReadDto>>(loans);
-            return Ok(mappedLoans);
+            var payLoad = new Dictionary<string, IEnumerable<LoanReadDto>>(){{"loans", mappedLoans}};
+            return Ok(payLoad);
         } 
 
         // GET /api/loans/{loanId}
