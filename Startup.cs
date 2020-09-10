@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AcmeApi.Data;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,9 @@ namespace AcmeApi
 
             // Create a service for our Loan repo so that it can be injected where it needs to be used.
             services.AddScoped<ILoanRepo, SqlLoanRepo>();
+
+            // Automapper service, makes Automapper available to the rest of the application via dependency injection.
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
