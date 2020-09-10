@@ -25,9 +25,24 @@ namespace AcmeApi
 
         public IConfiguration Configuration { get; }
 
+        readonly string CorsPolicy = "CorsPolicy";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors( opt => {
+                opt.AddPolicy(CorsPolicy, builder => {
+                    builder
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                    // .WithOrigins(new string[] {"http://localhost:4200/loans"});
+                });
+            });
+
+            // services.AddCors( opt => {
+            //     opt.AddDefaultPolicy( builder => builder.WithOrigins(new string[] {"http://localhost:4200"}).AllowAnyMethod().AllowAnyHeader());
+            // });
+            
             services.AddControllers();
 
             // Get access to SqlServer
@@ -47,12 +62,16 @@ namespace AcmeApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            
+            // app.UseHttpsRedirection();
 
-            app.UseHttpsRedirection();
+            app.UseCors(CorsPolicy);
 
             app.UseRouting();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
