@@ -7,6 +7,11 @@ namespace AcmeApi.Data
 {
     public class MockLoanRepo : ILoanRepo
     {
+        public void CreateLoan(Loan newLoan)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Loan> GetAllLoans()
         {
             var loans = new List<Loan>
@@ -46,6 +51,11 @@ namespace AcmeApi.Data
         public Loan GetLoanById(string id)
         {
            return new Loan {Id=1, applicantName="John Doe", applicantEmail="JohnDoe@gmail.com", applicantPhoneNumber="000-867-5309", loanAmount="34,000.00", loanId="924e075f-4058-49fb-98f4-11283a1c2ad2"};
+        }
+
+        public bool saveChanges()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
