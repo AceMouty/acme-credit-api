@@ -4,29 +4,30 @@
 ## Tech Stack
 
 ### [C# / .NET Core](https://github.com/dotnet/core)
------------------------------------------------------
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 
 .NET Core is a free and open-source, managed computer software framework for Windows, Linux, and macOS operating systems. It is a cross-platform successor to .NET Framework
 
+-----------------------------------------------------
 
 
 ### [Entity Framework Core](https://github.com/dotnet/efcore)
--------------------------------------------------------------
 [![latest version](https://img.shields.io/nuget/v/Microsoft.EntityFrameworkCore)](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
 
 EF Core is a modern object-database mapper for .NET. It supports LINQ queries, change tracking, updates, and schema migrations. EF Core works with SQL Server, Azure SQL Database, SQLite, Azure Cosmos DB, MySQL, PostgreSQL, and other databases through a provider plugin API.
 
+-------------------------------------------------------------
+
 ### [Microsoft SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
-----------------------------------------------------------------------------------------------------
 
 Microsoft SQL Server Express is a version of Microsoft's SQL Server relational database management system that is free to download, distribute and use. It comprises a database specifically targeted for embedded and smaller-scale applications.
+
+----------------------------------------------------------------------------------------------------
 
 ## Installation
 Clone this project to your local machine
 
 ## Environment Variables
-------------------------
 In order for the API to work correctly the user must setup their own environment variables. The project uses the `Secret Manager Tool` that is provided in .NET Core. This tool is only to be used for local dvelopment so that secrets are not stored in the project itself.
 
 In your file explorer be sure that you are able to see hidden files and folders
