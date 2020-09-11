@@ -72,7 +72,7 @@ Once complete you should be able to log into your newly created databse and quer
 ## Endpoints
 Currently the following endpoints are exposed by the API
 
-### GET /api/laons
+### GET /api/loans
 Returns:
 ```
 {
