@@ -1,3 +1,6 @@
+
+// Data Object that is used to enforce the shape of a Loan coming from an 
+// external client wanting to update a given loan.
 using System.ComponentModel.DataAnnotations;
 
 namespace AcmeApi.DTOs

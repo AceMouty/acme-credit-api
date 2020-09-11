@@ -1,3 +1,6 @@
+
+// Loan interface that acts as a contract specifing methods that
+// we should have in our Data Access Layer for LoanRepo and also our Mock Repo
 using System.Collections.Generic;
 using AcmeApi.Models;
 

@@ -1,3 +1,5 @@
+
+// Data access layer that uses the DB context for our Loans Table
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,3 +1,5 @@
+
+// Code representation of what a Loan Model / Table / Resource will look like
 using System.ComponentModel.DataAnnotations;
 
 namespace AcmeApi.Models

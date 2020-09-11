@@ -1,3 +1,5 @@
+
+// Data Used to seed the DB
 using AcmeApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

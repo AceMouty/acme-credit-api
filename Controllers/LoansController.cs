@@ -1,3 +1,5 @@
+
+// Controller to handle all requests coming in for /api/loans
 using System.Collections.Generic;
 using AcmeApi.Data;
 using AcmeApi.DTOs;

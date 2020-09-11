@@ -1,18 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AcmeApi.Data;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace AcmeApi
 {
@@ -29,19 +23,19 @@ namespace AcmeApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // Using a policy that has the API completely open for development purposes
+            // in deployment be sure to crate a access list of URL's / Clients that can talk
+            // to the API
+
             services.AddCors( opt => {
                 opt.AddPolicy(CorsPolicy, builder => {
                     builder
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowAnyOrigin();
-                    // .WithOrigins(new string[] {"http://localhost:4200/loans"});
                 });
             });
-
-            // services.AddCors( opt => {
-            //     opt.AddDefaultPolicy( builder => builder.WithOrigins(new string[] {"http://localhost:4200"}).AllowAnyMethod().AllowAnyHeader());
-            // });
             
             services.AddControllers();
 
@@ -64,6 +58,7 @@ namespace AcmeApi
             }
             
             
+            // Commented out so project will work on Local host
             // app.UseHttpsRedirection();
 
             app.UseCors(CorsPolicy);
