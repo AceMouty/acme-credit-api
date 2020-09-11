@@ -31,7 +31,7 @@ Clone this project to your local machine
 In order for the API to work correctly the user must setup their own environment variables. The project uses the `Secret Manager Tool` that is provided in .NET Core. This tool is only to be used for local dvelopment so that secrets are not stored in the project itself.
 
 In your file explorer be sure that you are able to see hidden files and folders
-### Secrests Destination Folder and File
+### Secrets Destination Folder and File
 - For Mac
 ```
 ~/.microsoft/usersecrets/<user_secrets_id>/secrets.json
